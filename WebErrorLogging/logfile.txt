@@ -1,0 +1,212 @@
+2019-10-04 17:51:51,369 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:31680:bd2a5863 successfully announced in 635.1976 ms
+2019-10-04 17:51:51,493 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:31680:bd2a5863 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2019-10-04 17:51:51,500 [ServerHeartbeatProcess #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerHeartbeatProcess:435bed8f has started in 6.4579 ms
+2019-10-04 17:51:51,511 [ServerHeartbeatProcess #1] DEBUG Hangfire.Server.ServerHeartbeatProcess [(null)] - Server d4mknnn2:31680:bd2a5863 waiting for 00:00:30 delay before sending a heartbeat
+2019-10-04 17:51:51,512 [ServerWatchdog #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerWatchdog:4ff04d58 has started in 16.8657 ms
+2019-10-04 17:51:51,528 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerJobCancellationWatcher:679c43ca has started in 1.5422 ms
+2019-10-04 17:51:51,531 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - Checking for aborted jobs...
+2019-10-04 17:51:51,538 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - No newly aborted jobs found.
+2019-10-04 17:51:51,539 [ExpirationManager #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ExpirationManager:eae8b443 has started in 3.5263 ms
+2019-10-04 17:51:51,541 [CountersAggregator #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop CountersAggregator:dfd64865 has started in 1.4039 ms
+2019-10-04 17:51:51,542 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'AggregatedCounter' table...
+2019-10-04 17:51:51,545 [CountersAggregator #1] DEBUG Hangfire.SqlServer.CountersAggregator [(null)] - Aggregating records in 'Counter' table...
+2019-10-04 17:51:51,553 [Worker #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:30519718 has started in 8.1478 ms
+2019-10-04 17:51:51,556 [Worker #2] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:a4c42d0f has started in 11.9827 ms
+2019-10-04 17:51:51,571 [Worker #3] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:f1b4bd2e has started in 27.4999 ms
+2019-10-04 17:51:51,572 [Worker #4] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:43f4819c has started in 28.4039 ms
+2019-10-04 17:51:51,574 [Worker #6] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:5626b814 has started in 29.8087 ms
+2019-10-04 17:51:51,574 [Worker #5] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:62cec549 has started in 30.6014 ms
+2019-10-04 17:51:51,575 [Worker #7] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:ea1b6374 has started in 31.5489 ms
+2019-10-04 17:51:51,576 [Worker #8] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:decc480a has started in 32.5634 ms
+2019-10-04 17:51:51,585 [Worker #9] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:cf8f4205 has started in 40.9494 ms
+2019-10-04 17:51:51,586 [Worker #10] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:182d0e47 has started in 42.4573 ms
+2019-10-04 17:51:51,588 [Worker #12] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:9c1f2c96 has started in 44.4142 ms
+2019-10-04 17:51:51,589 [Worker #11] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:928dd664 has started in 44.761 ms
+2019-10-04 17:51:51,590 [Worker #13] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:22922f02 has started in 45.9432 ms
+2019-10-04 17:51:51,591 [Worker #14] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:4c5c62bb has started in 47.1393 ms
+2019-10-04 17:51:51,592 [Worker #15] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:4e14df20 has started in 48.1444 ms
+2019-10-04 17:51:51,596 [Worker #16] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:dbdd9dd8 has started in 52.1066 ms
+2019-10-04 17:51:51,603 [Worker #17] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:2497cbec has started in 58.8056 ms
+2019-10-04 17:51:51,604 [Worker #18] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:adbc6339 has started in 60.4145 ms
+2019-10-04 17:51:51,618 [Worker #19] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:c664dea1 has started in 73.6335 ms
+2019-10-04 17:51:51,620 [Worker #20] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:abefb888 has started in 75.7311 ms
+2019-10-04 17:51:51,629 [DelayedJobScheduler #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop DelayedJobScheduler:bf20fbd1 has started in 4.4573 ms
+2019-10-04 17:51:51,638 [RecurringJobScheduler #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop RecurringJobScheduler:814a0492 has started in 5.8001 ms
+2019-10-04 17:51:51,639 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:31680:bd2a5863 all the dispatchers started
+2019-10-04 17:51:51,820 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'AggregatedCounter' table.
+2019-10-04 17:51:51,820 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'Job' table...
+2019-10-04 17:51:51,854 [CountersAggregator #1] DEBUG Hangfire.SqlServer.CountersAggregator [(null)] - Records from the 'Counter' table aggregated.
+2019-10-04 17:51:51,961 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'Job' table.
+2019-10-04 17:51:51,962 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'List' table...
+2019-10-04 17:51:51,968 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'List' table.
+2019-10-04 17:51:51,969 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'Set' table...
+2019-10-04 17:51:51,973 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'Set' table.
+2019-10-04 17:51:51,974 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'Hash' table...
+2019-10-04 17:51:51,978 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'Hash' table.
+2019-10-04 17:51:55,988 [106] DEBUG Hangfire.AspNet.ShutdownDetector [(null)] - IRegisteredObject.Stop method called.
+2019-10-04 17:51:55,990 [106] DEBUG Hangfire.AspNet.ShutdownDetector [(null)] - Application instance is shutting down: HostingEnvironment.
+2019-10-04 17:51:55,993 [106] DEBUG Hangfire.BackgroundJobServer [(null)] - Hangfire Server is stopping...
+2019-10-04 17:51:55,997 [106] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:31680:bd2a5863 caught stopping signal...
+2019-10-04 17:51:56,001 [RecurringJobScheduler #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop RecurringJobScheduler:814a0492 stopped in 2.1781 ms
+2019-10-04 17:51:56,009 [DelayedJobScheduler #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop DelayedJobScheduler:bf20fbd1 stopped in 10.4883 ms
+2019-10-04 17:51:56,016 [99] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:31680:bd2a5863 caught stopped signal...
+2019-10-04 17:51:56,002 [CountersAggregator #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop CountersAggregator:dfd64865 stopped in 3.3276 ms
+2019-10-04 17:51:56,001 [ServerWatchdog #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerWatchdog:4ff04d58 stopped in 2.1074 ms
+2019-10-04 17:51:56,001 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerJobCancellationWatcher:679c43ca stopped in 2.1344 ms
+2019-10-04 17:51:56,001 [ExpirationManager #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ExpirationManager:eae8b443 stopped in 2.6836 ms
+2019-10-04 17:51:56,820 [Worker #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:30519718 stopped in 821.4446 ms
+2019-10-04 17:51:56,833 [Worker #5] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:62cec549 stopped in 833.504 ms
+2019-10-04 17:51:56,839 [Worker #8] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:decc480a stopped in 840.1333 ms
+2019-10-04 17:51:56,842 [Worker #7] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:ea1b6374 stopped in 842.5996 ms
+2019-10-04 17:51:56,842 [Worker #10] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:182d0e47 stopped in 842.5996 ms
+2019-10-04 17:51:56,844 [Worker #2] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:a4c42d0f stopped in 845.183 ms
+2019-10-04 17:51:56,850 [Worker #9] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:cf8f4205 stopped in 849.7253 ms
+2019-10-04 17:51:56,859 [Worker #4] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:43f4819c stopped in 860.4048 ms
+2019-10-04 17:51:56,888 [Worker #11] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:928dd664 stopped in 889.095 ms
+2019-10-04 17:51:56,903 [Worker #15] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:4e14df20 stopped in 904.1516 ms
+2019-10-04 17:51:56,903 [Worker #12] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:9c1f2c96 stopped in 904.416 ms
+2019-10-04 17:51:56,904 [Worker #16] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:dbdd9dd8 stopped in 904.9116 ms
+2019-10-04 17:51:56,905 [Worker #13] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:22922f02 stopped in 905.587 ms
+2019-10-04 17:51:56,905 [Worker #17] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:2497cbec stopped in 906.3612 ms
+2019-10-04 17:51:56,909 [Worker #6] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:5626b814 stopped in 910.0976 ms
+2019-10-04 17:51:56,909 [Worker #19] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:c664dea1 stopped in 910.2573 ms
+2019-10-04 17:51:56,946 [Worker #14] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:4c5c62bb stopped in 946.6458 ms
+2019-10-04 17:51:56,977 [Worker #20] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:abefb888 stopped in 978.1433 ms
+2019-10-04 17:51:56,977 [Worker #18] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:adbc6339 stopped in 978.1506 ms
+2019-10-04 17:51:57,033 [Worker #3] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:f1b4bd2e stopped in 1033.5309 ms
+2019-10-04 17:51:57,035 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:31680:bd2a5863 All dispatchers stopped
+2019-10-04 17:51:57,036 [ServerHeartbeatProcess #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerHeartbeatProcess:435bed8f stopped in 1037.4431 ms
+2019-10-04 17:51:57,043 [BackgroundServerProcess #1] DEBUG Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:31680:bd2a5863 is reporting itself as stopped...
+2019-10-04 17:51:57,057 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:31680:bd2a5863 successfully reported itself as stopped in 13.5709 ms
+2019-10-04 17:51:57,058 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:31680:bd2a5863 has been stopped in total 1058.574 ms
+2019-10-04 17:51:57,061 [BackgroundServerProcess #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop BackgroundServerProcess:90732147 stopped in 1061.1687 ms
+2019-10-04 17:52:23,023 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:33064:9ee13e47 successfully announced in 366.199 ms
+2019-10-04 17:52:23,124 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:33064:9ee13e47 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2019-10-04 17:52:23,126 [ServerHeartbeatProcess #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerHeartbeatProcess:8db3b19b has started in 28.5079 ms
+2019-10-04 17:52:23,145 [ServerWatchdog #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerWatchdog:c3c3ac88 has started in 17.2231 ms
+2019-10-04 17:52:23,151 [ServerHeartbeatProcess #1] DEBUG Hangfire.Server.ServerHeartbeatProcess [(null)] - Server d4mknnn2:33064:9ee13e47 waiting for 00:00:30 delay before sending a heartbeat
+2019-10-04 17:52:23,161 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerJobCancellationWatcher:f27b9719 has started in 10.6247 ms
+2019-10-04 17:52:23,164 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - Checking for aborted jobs...
+2019-10-04 17:52:23,167 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - No newly aborted jobs found.
+2019-10-04 17:52:23,173 [ExpirationManager #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ExpirationManager:4869c2cc has started in 10.9646 ms
+2019-10-04 17:52:23,177 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'AggregatedCounter' table...
+2019-10-04 17:52:23,191 [CountersAggregator #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop CountersAggregator:0e8fbaec has started in 16.2239 ms
+2019-10-04 17:52:23,193 [CountersAggregator #1] DEBUG Hangfire.SqlServer.CountersAggregator [(null)] - Aggregating records in 'Counter' table...
+2019-10-04 17:52:23,230 [Worker #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:650cec19 has started in 43.9149 ms
+2019-10-04 17:52:23,230 [Worker #2] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:d3261e0c has started in 43.9744 ms
+2019-10-04 17:52:23,261 [Worker #3] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:0659d358 has started in 75.4438 ms
+2019-10-04 17:52:23,266 [Worker #4] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:8ce4499f has started in 80.291 ms
+2019-10-04 17:52:23,269 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'AggregatedCounter' table.
+2019-10-04 17:52:23,270 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'Job' table...
+2019-10-04 17:52:23,284 [Worker #5] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:c435199d has started in 98.5523 ms
+2019-10-04 17:52:23,287 [CountersAggregator #1] DEBUG Hangfire.SqlServer.CountersAggregator [(null)] - Records from the 'Counter' table aggregated.
+2019-10-04 17:52:23,291 [Worker #6] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:0e788970 has started in 105.6398 ms
+2019-10-04 17:52:23,308 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'Job' table.
+2019-10-04 17:52:23,309 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'List' table...
+2019-10-04 17:52:23,316 [Worker #7] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:dc929d9f has started in 129.8631 ms
+2019-10-04 17:52:23,336 [Worker #8] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:ef0e12cf has started in 150.1367 ms
+2019-10-04 17:52:23,372 [Worker #9] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:64abb128 has started in 186.6715 ms
+2019-10-04 17:52:23,374 [Worker #10] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:59764472 has started in 188.1863 ms
+2019-10-04 17:52:23,392 [Worker #11] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:d3bf3093 has started in 206.1096 ms
+2019-10-04 17:52:23,403 [Worker #12] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:e3082b38 has started in 217.2099 ms
+2019-10-04 17:52:23,404 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'List' table.
+2019-10-04 17:52:23,404 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'Set' table...
+2019-10-04 17:52:23,450 [Worker #13] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:bc12c0e6 has started in 263.8486 ms
+2019-10-04 17:52:23,453 [Worker #14] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:28392656 has started in 267.2382 ms
+2019-10-04 17:52:23,475 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'Set' table.
+2019-10-04 17:52:23,475 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'Hash' table...
+2019-10-04 17:52:23,477 [Worker #15] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:80a26e29 has started in 291.6888 ms
+2019-10-04 17:52:23,483 [Worker #16] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:79a88a3e has started in 297.4218 ms
+2019-10-04 17:52:23,483 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'Hash' table.
+2019-10-04 17:52:23,489 [Worker #17] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:b54829cb has started in 303.5392 ms
+2019-10-04 17:52:23,495 [Worker #18] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:dd1e77cf has started in 309.3666 ms
+2019-10-04 17:52:23,503 [Worker #19] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:72d7e559 has started in 316.8559 ms
+2019-10-04 17:52:23,510 [Worker #20] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:9cea2fb2 has started in 324.2402 ms
+2019-10-04 17:52:23,520 [DelayedJobScheduler #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop DelayedJobScheduler:717376b1 has started in 8.7882 ms
+2019-10-04 17:52:23,526 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:33064:9ee13e47 all the dispatchers started
+2019-10-04 17:52:23,529 [RecurringJobScheduler #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop RecurringJobScheduler:53e54647 has started in 9.7002 ms
+2019-10-04 17:52:37,838 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - Checking for aborted jobs...
+2019-10-04 17:52:37,838 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - No newly aborted jobs found.
+2019-10-04 17:52:42,840 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - Checking for aborted jobs...
+2019-10-04 17:52:42,840 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - No newly aborted jobs found.
+2019-10-04 17:52:47,840 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - Checking for aborted jobs...
+2019-10-04 17:52:47,840 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - No newly aborted jobs found.
+2019-10-04 17:52:47,859 [6] DEBUG Hangfire.AspNet.ShutdownDetector [(null)] - HostingEnvironment.ShutdownReason != None triggered.
+2019-10-04 17:52:47,861 [6] DEBUG Hangfire.AspNet.ShutdownDetector [(null)] - Application instance is shutting down: InitializationError.
+2019-10-04 17:52:47,863 [6] DEBUG Hangfire.BackgroundJobServer [(null)] - Hangfire Server is stopping...
+2019-10-04 17:52:47,865 [6] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:33064:9ee13e47 caught stopping signal...
+2019-10-04 17:52:47,878 [DelayedJobScheduler #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop DelayedJobScheduler:717376b1 stopped in 12.0123 ms
+2019-10-04 17:52:47,880 [RecurringJobScheduler #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop RecurringJobScheduler:53e54647 stopped in 13.7992 ms
+2019-10-04 17:52:47,880 [ServerWatchdog #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerWatchdog:c3c3ac88 stopped in 13.8794 ms
+2019-10-04 17:52:47,883 [9] DEBUG Hangfire.AspNet.ShutdownDetector [(null)] - IRegisteredObject.Stop method called.
+2019-10-04 17:52:47,883 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerJobCancellationWatcher:f27b9719 stopped in 16.889 ms
+2019-10-04 17:52:47,883 [9] DEBUG Hangfire.AspNet.ShutdownDetector [(null)] - Application instance is shutting down: InitializationError.
+2019-10-04 17:52:47,887 [ExpirationManager #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ExpirationManager:4869c2cc stopped in 21.0237 ms
+2019-10-04 17:52:47,888 [CountersAggregator #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop CountersAggregator:0e8fbaec stopped in 21.7629 ms
+2019-10-04 17:52:47,889 [7] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:33064:9ee13e47 caught stopped signal...
+2019-10-04 17:52:47,994 [Worker #3] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:0659d358 stopped in 127.4982 ms
+2019-10-04 17:52:47,994 [Worker #8] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:ef0e12cf stopped in 128.0555 ms
+2019-10-04 17:52:47,995 [Worker #14] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:28392656 stopped in 128.7385 ms
+2019-10-04 17:52:47,996 [Worker #20] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:9cea2fb2 stopped in 130.052 ms
+2019-10-04 17:52:47,996 [Worker #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:650cec19 stopped in 130.3095 ms
+2019-10-04 17:52:47,999 [Worker #5] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:c435199d stopped in 133.1769 ms
+2019-10-04 17:52:48,000 [Worker #4] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:8ce4499f stopped in 133.9329 ms
+2019-10-04 17:52:47,999 [Worker #16] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:79a88a3e stopped in 133.2024 ms
+2019-10-04 17:52:48,004 [Worker #13] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:bc12c0e6 stopped in 138.1025 ms
+2019-10-04 17:52:48,005 [Worker #11] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:d3bf3093 stopped in 138.9325 ms
+2019-10-04 17:52:48,017 [Worker #17] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:b54829cb stopped in 150.4525 ms
+2019-10-04 17:52:48,017 [Worker #18] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:dd1e77cf stopped in 151.2202 ms
+2019-10-04 17:52:48,033 [Worker #19] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:72d7e559 stopped in 166.3202 ms
+2019-10-04 17:52:48,068 [Worker #9] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:64abb128 stopped in 202.3115 ms
+2019-10-04 17:52:48,070 [Worker #6] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:0e788970 stopped in 204.2822 ms
+2019-10-04 17:52:48,074 [Worker #2] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:d3261e0c stopped in 207.9023 ms
+2019-10-04 17:52:48,097 [Worker #12] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:e3082b38 stopped in 230.8016 ms
+2019-10-04 17:52:48,108 [Worker #15] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:80a26e29 stopped in 242.1006 ms
+2019-10-04 17:52:48,141 [Worker #7] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:dc929d9f stopped in 274.5809 ms
+2019-10-04 17:54:43,106 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:33064:52bcdea2 successfully announced in 769.5779 ms
+2019-10-04 17:54:43,203 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:33064:52bcdea2 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2019-10-04 17:54:43,206 [ServerHeartbeatProcess #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerHeartbeatProcess:acf40f49 has started in 31.803 ms
+2019-10-04 17:54:43,223 [ServerHeartbeatProcess #1] DEBUG Hangfire.Server.ServerHeartbeatProcess [(null)] - Server d4mknnn2:33064:52bcdea2 waiting for 00:00:30 delay before sending a heartbeat
+2019-10-04 17:54:43,229 [ServerWatchdog #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerWatchdog:d6baa27f has started in 23.7963 ms
+2019-10-04 17:54:43,261 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ServerJobCancellationWatcher:5c2a0ed2 has started in 27.9568 ms
+2019-10-04 17:54:43,264 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - Checking for aborted jobs...
+2019-10-04 17:54:43,271 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - No newly aborted jobs found.
+2019-10-04 17:54:43,298 [ExpirationManager #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop ExpirationManager:dc3448b5 has started in 25.7148 ms
+2019-10-04 17:54:43,302 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'AggregatedCounter' table...
+2019-10-04 17:54:43,346 [CountersAggregator #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop CountersAggregator:2da3c721 has started in 49.6684 ms
+2019-10-04 17:54:43,347 [CountersAggregator #1] DEBUG Hangfire.SqlServer.CountersAggregator [(null)] - Aggregating records in 'Counter' table...
+2019-10-04 17:54:43,365 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'AggregatedCounter' table.
+2019-10-04 17:54:43,365 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'Job' table...
+2019-10-04 17:54:43,396 [Worker #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:c1a896a2 has started in 45.979 ms
+2019-10-04 17:54:43,396 [Worker #2] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:519b011f has started in 46.3042 ms
+2019-10-04 17:54:43,491 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'Job' table.
+2019-10-04 17:54:43,491 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'List' table...
+2019-10-04 17:54:43,570 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'List' table.
+2019-10-04 17:54:43,571 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'Set' table...
+2019-10-04 17:54:43,660 [Worker #3] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:9fd2bf6c has started in 310.0726 ms
+2019-10-04 17:54:43,761 [Worker #4] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:320c75ec has started in 410.3594 ms
+2019-10-04 17:54:43,915 [Worker #5] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:f5e7c3cf has started in 564.3614 ms
+2019-10-04 17:54:43,958 [CountersAggregator #1] DEBUG Hangfire.SqlServer.CountersAggregator [(null)] - Records from the 'Counter' table aggregated.
+2019-10-04 17:54:43,964 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'Set' table.
+2019-10-04 17:54:43,964 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Removing outdated records from the 'Hash' table...
+2019-10-04 17:54:44,010 [Worker #6] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:d844bd9b has started in 659.5781 ms
+2019-10-04 17:54:44,027 [ExpirationManager #1] DEBUG Hangfire.SqlServer.ExpirationManager [(null)] - Outdated records removed from the 'Hash' table.
+2019-10-04 17:54:44,062 [Worker #7] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:6e9cf0d9 has started in 711.5078 ms
+2019-10-04 17:54:44,092 [Worker #8] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:26d7682d has started in 741.5948 ms
+2019-10-04 17:54:44,104 [Worker #9] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:4e26bf16 has started in 753.3187 ms
+2019-10-04 17:54:44,111 [Worker #10] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:88c5762c has started in 760.5344 ms
+2019-10-04 17:54:44,124 [Worker #11] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:2dc66c3b has started in 773.7152 ms
+2019-10-04 17:54:44,130 [Worker #12] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:83d65fd3 has started in 779.5496 ms
+2019-10-04 17:54:44,144 [Worker #13] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:ed41461c has started in 793.5424 ms
+2019-10-04 17:54:44,154 [Worker #14] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:55d7eac9 has started in 803.9224 ms
+2019-10-04 17:54:44,164 [Worker #15] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:c92d04ab has started in 812.997 ms
+2019-10-04 17:54:44,176 [Worker #16] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:80b25c94 has started in 826.0861 ms
+2019-10-04 17:54:44,191 [Worker #17] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:f8396dd5 has started in 840.8652 ms
+2019-10-04 17:54:44,209 [Worker #18] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:e071cffa has started in 859.1765 ms
+2019-10-04 17:54:44,223 [Worker #19] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:5a56aeb7 has started in 873.2383 ms
+2019-10-04 17:54:44,231 [Worker #20] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop Worker:c73c761e has started in 881.116 ms
+2019-10-04 17:54:44,246 [DelayedJobScheduler #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop DelayedJobScheduler:b64bb92f has started in 16.3679 ms
+2019-10-04 17:54:44,268 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess [(null)] - Server d4mknnn2:33064:52bcdea2 all the dispatchers started
+2019-10-04 17:54:44,296 [RecurringJobScheduler #1] DEBUG Hangfire.Processing.BackgroundExecution [(null)] - Execution loop RecurringJobScheduler:9018afd1 has started in 56.6635 ms
+2019-10-04 17:54:48,302 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - Checking for aborted jobs...
+2019-10-04 17:54:48,304 [ServerJobCancellationWatcher #1] DEBUG Hangfire.Server.ServerJobCancellationWatcher [(null)] - No newly aborted jobs found.

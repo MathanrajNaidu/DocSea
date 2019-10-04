@@ -14,10 +14,12 @@ namespace DocSea.Models
 
         public string Password { get; set; }
 
-        public string MainPath { get; set; }
+        public string DirectoryPath { get; set; }
 
         public string Status { get; set; }
 
         public int JobId { get; set; }
+
+        public bool ForceStop { get; set; }
     }
 }

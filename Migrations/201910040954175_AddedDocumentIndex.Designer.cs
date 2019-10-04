@@ -13,7 +13,7 @@ namespace DocSea.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201910030730372_AddedDocumentIndex"; }
+            get { return "201910040954175_AddedDocumentIndex"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,5 +1,11 @@
-﻿using Microsoft.Owin;
+﻿using DocSea.Process;
+using Hangfire;
+using Hangfire.SqlServer;
+using Microsoft.Owin;
 using Owin;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 [assembly: OwinStartupAttribute(typeof(DocSea.Startup))]
 namespace DocSea
@@ -9,6 +15,30 @@ namespace DocSea
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            app.UseHangfireAspNet(GetHangfireServers);
+            app.UseHangfireDashboard();
+            log4net.Config.XmlConfigurator.Configure();
+            var indexDocumentsProcess = new IndexDocumentsProcess();
+            indexDocumentsProcess.CheckAllDirectoryIndexing();
+        }
+
+        private IEnumerable<IDisposable> GetHangfireServers()
+        {
+            GlobalConfiguration.Configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage("DefaultConnection", new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    UsePageLocksOnDequeue = true,
+                    DisableGlobalLocks = true
+                });
+
+            yield return new BackgroundJobServer();
         }
     }
 }

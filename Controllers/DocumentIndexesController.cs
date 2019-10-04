@@ -7,12 +7,15 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DocSea.Models;
+using DocSea.Process;
 
 namespace DocSea.Controllers
 {
     public class DocumentIndexesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        private IndexDocumentsProcess process = new IndexDocumentsProcess();
 
         // GET: DocumentIndexes
         public ActionResult Index()
@@ -46,12 +49,13 @@ namespace DocSea.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Username,Password,MainPath,Status,JobId")] DocumentIndex documentIndex)
+        public ActionResult Create([Bind(Include = "Id,Username,Password,DirectoryPath,Status,JobId")] DocumentIndex documentIndex)
         {
             if (ModelState.IsValid)
             {
                 db.DocumentIndexes.Add(documentIndex);
                 db.SaveChanges();
+                process.ProcessDirectory(documentIndex.Id);
                 return RedirectToAction("Index");
             }
 
@@ -78,7 +82,7 @@ namespace DocSea.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Username,Password,MainPath,Status,JobId")] DocumentIndex documentIndex)
+        public ActionResult Edit([Bind(Include = "Id,Username,Password,DirectoryPath,Status,JobId")] DocumentIndex documentIndex)
         {
             if (ModelState.IsValid)
             {

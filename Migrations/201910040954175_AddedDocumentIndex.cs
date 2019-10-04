@@ -14,9 +14,10 @@ namespace DocSea.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Username = c.String(),
                         Password = c.String(),
-                        MainPath = c.String(),
+                        DirectoryPath = c.String(),
                         Status = c.String(),
                         JobId = c.Int(nullable: false),
+                        ForceStop = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
