@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DocSea.Models;
@@ -20,7 +21,9 @@ namespace DocSea.Controllers
         // GET: DocumentIndexes
         public ActionResult Index()
         {
-            return View(db.DocumentIndexes.ToList());
+            var docIndexes = db.DocumentIndexes.ToList();
+            docIndexes =  docIndexes.Select(x => { x.Status = process.GetJobStatus(x.JobId); return x; }).ToList();
+            return View(docIndexes);
         }
 
         // GET: DocumentIndexes/Details/5
@@ -55,7 +58,7 @@ namespace DocSea.Controllers
             {
                 db.DocumentIndexes.Add(documentIndex);
                 db.SaveChanges();
-                process.ProcessDirectory(documentIndex.Id);
+                process.CheckAndStartNewIndexingProcessAsync(documentIndex.Id);
                 return RedirectToAction("Index");
             }
 
@@ -82,12 +85,13 @@ namespace DocSea.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Username,Password,DirectoryPath,Status,JobId")] DocumentIndex documentIndex)
+        public ActionResult Edit([Bind(Include = "Id,Username,Password,DirectoryPath,Status,JobId,ForceStop")] DocumentIndex documentIndex)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(documentIndex).State = EntityState.Modified;
                 db.SaveChanges();
+                process.CheckAndStartNewIndexingProcessAsync(documentIndex.Id, true);
                 return RedirectToAction("Index");
             }
             return View(documentIndex);
@@ -114,6 +118,7 @@ namespace DocSea.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             DocumentIndex documentIndex = db.DocumentIndexes.Find(id);
+            process.ForceStopIndexingJob(documentIndex.JobId);
             db.DocumentIndexes.Remove(documentIndex);
             db.SaveChanges();
             return RedirectToAction("Index");

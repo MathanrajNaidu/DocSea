@@ -12,12 +12,14 @@ using Lucene.Net.Store;
 using Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using TikaOnDotNet.TextExtraction;
 using Directory = System.IO.Directory;
 
 namespace DocSea.Process
@@ -26,36 +28,55 @@ namespace DocSea.Process
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private static readonly ILog Log = LogManager.GetLogger(typeof(IndexDocumentsProcess));
+        private static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
-        public void IndexingTimer()
-        {            
+        public async Task IndexingTimerAsync()
+        {
             while (true)
             {
-                CheckAllDirectoryIndexing();
-                Task.Delay(TimeSpan.FromHours(1));
+                var documentIndexes = db.DocumentIndexes.Where(x => !x.ForceStop).ToList();
+                foreach (var index in documentIndexes)
+                {
+                   await CheckAndStartNewIndexingProcessAsync(index.Id);
+                };
+                await Task.Delay(TimeSpan.FromSeconds(30));
             }
         }
 
-        public void CheckAllDirectoryIndexing()
+        public async Task CheckAndStartNewIndexingProcessAsync(int id, bool forceStop = false)
         {
-            var documentIndexes = db.DocumentIndexes.Where(x => !x.ForceStop).ToList();
-            foreach(var index in documentIndexes)
+            try
             {
-                CheckAndStartNewIndexingProcess(index.Id);
-            };
+               await semaphoreSlim.WaitAsync();
+
+                var index = db.DocumentIndexes.FirstOrDefault(x => x.Id == id);
+                if (index == null) return;
+                if (forceStop) ForceStopIndexingJob(index.JobId);
+                if (index.ForceStop) return;
+                if (!string.IsNullOrEmpty(index.JobId))
+                {
+                    var jobState = GetJobStatus(index.JobId);
+                    var jobStartIfStates = new List<string> { "succeeded", "failed", "deleted" };
+                   
+                    if (jobState != null && !jobStartIfStates.Contains(jobState.ToLower()))
+                        return;
+                        
+                }
+                var jobId = BackgroundJob.Schedule(() => ProcessDirectory(index.Id), TimeSpan.FromMinutes(1));
+                index.JobId = jobId;
+                db.Entry(index).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex);
+            }
+            finally
+            {
+                semaphoreSlim.Release();
+            }
         }
 
-        public void CheckAndStartNewIndexingProcess(int id)
-        {
-            var index = db.DocumentIndexes.FirstOrDefault(x => x.Id == id);
-
-            IStorageConnection connection = JobStorage.Current.GetConnection();
-            JobData jobData = connection.GetJobData(index.JobId.ToString());
-            if (jobData.State.ToLower() != "succeeded" || jobData.State.ToLower() != "failed")
-                return;
-            BackgroundJob.Enqueue(() => ProcessDirectory(index.Id));
-        }
-                
         public void ProcessDirectory(int id)
         {
             var index = db.DocumentIndexes.Find(id);
@@ -64,7 +85,6 @@ namespace DocSea.Process
                 if (string.IsNullOrEmpty(index.Username) || string.IsNullOrEmpty(index.Password))
                 {
                     IndexDirectory(index.DirectoryPath);
-                    return;
                 }
                 else
                 {
@@ -72,65 +92,85 @@ namespace DocSea.Process
                     {
                         IndexDirectory(index.DirectoryPath);
                         conn.Dispose();
-                        return;
                     }
                 }
+                Task.Factory.StartNew(() => CheckAndStartNewIndexingProcessAsync(id, false)); 
             }
             catch (Exception ex)
             {
-                Log.Error(ex.ToString());
-            }
-            finally
-            {
-                CheckAndStartNewIndexingProcess(id);
+                Log.Error(ex);
             }
         }
 
         public void IndexDirectory(string directoryPath)
         {
-            if(!Directory.Exists(directoryPath)) return;
-            var files = Directory.GetFiles(directoryPath).ToList();
-
+            if (!Directory.Exists(directoryPath)) return;
+            var files = Directory.EnumerateFiles(directoryPath, "*", SearchOption.AllDirectories);
 
             var AppLuceneVersion = LuceneVersion.LUCENE_48;
 
-            var indexLocation = $"Indexes/{Path.GetDirectoryName(directoryPath)}";
-            var dir = FSDirectory.Open(indexLocation);
+            string workingDirectory = Environment.CurrentDirectory;
+
+            string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+
+            var indexLocation = $"{projectDirectory}Indexes\\{Path.GetFileName(directoryPath)}";
+            if (!Directory.Exists(indexLocation)) Directory.CreateDirectory(indexLocation);
+
 
             //create an analyzer to process the text
             var analyzer = new StandardAnalyzer(AppLuceneVersion);
 
-            //create an index writer
-            var indexConfig = new IndexWriterConfig(AppLuceneVersion, analyzer);
-
+            int i = 1;
             foreach (var file in files)
             {
-                var text = file.Convert();
+                try
+                {
+                    var textExtrator = new TextExtractor();
 
-                var doc = new Document();
-                // StringField indexes but doesn't tokenise
-                doc.Add(new StringField("path", file, Field.Store.YES));
+                    var text = textExtrator.Extract(file).Text;
 
-                doc.Add(new TextField("text", text, Field.Store.YES));
+                    var doc = new Document();
 
-                var writer = new IndexWriter(dir, indexConfig);
+                    doc.Add(new StringField("path", file, Field.Store.YES));
 
-                writer.AddDocument(doc);
-                writer.Flush(triggerMerge: false, applyAllDeletes: false);
-            };
-        }
+                    doc.Add(new TextField("text", text, Field.Store.YES));
 
-        public void ForceStopIndexingJob(int jobId)
-        {
-            BackgroundJob.Delete(jobId.ToString());
-            return;
+                    var dir = FSDirectory.Open(indexLocation);  
+
+                    //create an index writer
+                    var indexConfig = new IndexWriterConfig(AppLuceneVersion, analyzer);
+
+                    using (var writer = new IndexWriter(dir, indexConfig))
+                    {
+                        writer.UpdateDocument(new Term("path", file), doc);
+                        writer.Flush(triggerMerge: false, applyAllDeletes: false);
+                        writer.Commit();
+                        writer.Dispose();
+                    };
+
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex);
+                }
+                finally
+                {
+                    File.AppendAllText($"{projectDirectory}Indexes\\Count.txt", $"{Path.GetFileName(directoryPath)}, {i}");
+                    i++;
+                }
+
+            }
         }
 
         public List<string> Search(string directoryNameOrPath, string keyword)
         {
             var AppLuceneVersion = LuceneVersion.LUCENE_48;
 
-            var indexLocation = $"Indexes/{Path.GetDirectoryName(directoryNameOrPath)}";
+            string workingDirectory = Environment.CurrentDirectory;
+
+            string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+
+            var indexLocation = $"{projectDirectory}Indexes\\{Path.GetFileName(directoryNameOrPath)}";
             var dir = FSDirectory.Open(indexLocation);
 
             //create an analyzer to process the text
@@ -156,5 +196,21 @@ namespace DocSea.Process
             }
             return paths;
         }
+        
+        public void ForceStopIndexingJob(string jobId)
+        {
+            if (string.IsNullOrEmpty(jobId)) return;
+            BackgroundJob.Delete(jobId);
+        }
+
+        public string GetJobStatus(string jobId)
+        {
+            if (jobId == null) return "Idle";
+            IStorageConnection connection = JobStorage.Current.GetConnection();
+            JobData jobData = connection.GetJobData(jobId);
+
+            return jobData?.State;
+        }
+
     }
 }

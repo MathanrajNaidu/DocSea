@@ -6,6 +6,7 @@ using Owin;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 [assembly: OwinStartupAttribute(typeof(DocSea.Startup))]
 namespace DocSea
@@ -19,7 +20,7 @@ namespace DocSea
             app.UseHangfireDashboard();
             log4net.Config.XmlConfigurator.Configure();
             var indexDocumentsProcess = new IndexDocumentsProcess();
-            indexDocumentsProcess.CheckAllDirectoryIndexing();
+            Task.Factory.StartNew(() => indexDocumentsProcess.IndexingTimerAsync());
         }
 
         private IEnumerable<IDisposable> GetHangfireServers()

@@ -18,7 +18,7 @@ namespace DocSea.Models
 
         public string Status { get; set; }
 
-        public int JobId { get; set; }
+        public string JobId { get; set; }
 
         public bool ForceStop { get; set; }
     }

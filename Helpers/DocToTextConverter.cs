@@ -1,4 +1,6 @@
-﻿using Spire.Doc;
+﻿using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
+using Spire.Doc;
 using Spire.Pdf;
 using Spire.Presentation;
 using Spire.Xls;
@@ -17,7 +19,7 @@ namespace DocSea.Helpers
 
         public static string Convert(this string path)
         {
-           var ext =  Path.GetExtension(path);
+           var ext = System.IO.Path.GetExtension(path).ToLower();
 
             if (ext.Contains("pdf"))
                 return path.FromPDFToTextUsingPath();
@@ -29,22 +31,24 @@ namespace DocSea.Helpers
                 return path.FromPPTToTextUsingPath();
 
             else if (ext.Contains("xls"))
-                return path.FromPPTToTextUsingPath();
+                return path.FromXLSToTextUsingPath();
 
             else return path.FromAnyFileToTextUsingPath();
         }
 
         public static string FromPDFToTextUsingPath(this string path)
         {
-            PdfDocument document = new PdfDocument();
-            document.LoadFromFile(path);
-            StringBuilder content = new StringBuilder();
-            foreach (PdfPageBase page in document.Pages)
+            using (PdfReader reader = new PdfReader(path))
             {
-                content.Append(page.ExtractText());
-            }
+                StringBuilder text = new StringBuilder();
 
-            return content.ToString();
+                for (int i = 1; i <= reader.NumberOfPages; i++)
+                {
+                    text.Append(PdfTextExtractor.GetTextFromPage(reader, i));
+                }
+
+                return text.ToString();
+            }
         }
 
         public static string FromDocToTextUsingPath(this string path)
