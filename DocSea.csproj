@@ -326,6 +326,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DocumentIndexesController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -347,6 +348,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\DocumentIndex.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Process\IndexDocumentsProcess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -412,6 +414,7 @@
     <Content Include="Views\DocumentIndexes\Details.cshtml" />
     <Content Include="Views\DocumentIndexes\Edit.cshtml" />
     <Content Include="Views\DocumentIndexes\Index.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

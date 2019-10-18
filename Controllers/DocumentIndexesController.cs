@@ -58,7 +58,7 @@ namespace DocSea.Controllers
             {
                 db.DocumentIndexes.Add(documentIndex);
                 db.SaveChanges();
-                process.CheckAndStartNewIndexingProcessAsync(documentIndex.Id);
+                Task.Factory.StartNew(() => process.CheckAndStartNewIndexingProcessAsync(documentIndex.Id));
                 return RedirectToAction("Index");
             }
 
@@ -91,7 +91,7 @@ namespace DocSea.Controllers
             {
                 db.Entry(documentIndex).State = EntityState.Modified;
                 db.SaveChanges();
-                process.CheckAndStartNewIndexingProcessAsync(documentIndex.Id, true);
+                Task.Factory.StartNew(() => process.CheckAndStartNewIndexingProcessAsync(documentIndex.Id, true));
                 return RedirectToAction("Index");
             }
             return View(documentIndex);

@@ -13,6 +13,7 @@ using Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -94,7 +95,7 @@ namespace DocSea.Process
                         conn.Dispose();
                     }
                 }
-                Task.Factory.StartNew(() => CheckAndStartNewIndexingProcessAsync(id, false)); 
+                Task.Factory.StartNew(() => CheckAndStartNewIndexingProcessAsync(id, false));
             }
             catch (Exception ex)
             {
@@ -105,72 +106,121 @@ namespace DocSea.Process
         public void IndexDirectory(string directoryPath)
         {
             if (!Directory.Exists(directoryPath)) return;
+
             var files = Directory.EnumerateFiles(directoryPath, "*", SearchOption.AllDirectories);
 
-            var AppLuceneVersion = LuceneVersion.LUCENE_48;
+            var indexLocation = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.FullName}Indexes\\{Path.GetFileName(directoryPath)}";
 
-            string workingDirectory = Environment.CurrentDirectory;
-
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
-            var indexLocation = $"{projectDirectory}Indexes\\{Path.GetFileName(directoryPath)}";
             if (!Directory.Exists(indexLocation)) Directory.CreateDirectory(indexLocation);
 
+            var dir = FSDirectory.Open(indexLocation);
+
+            var AppLuceneVersion = LuceneVersion.LUCENE_48;
 
             //create an analyzer to process the text
             var analyzer = new StandardAnalyzer(AppLuceneVersion);
 
+            //create an index writer
+            var indexConfig = new IndexWriterConfig(AppLuceneVersion, analyzer);
+            var writer = new IndexWriter(dir, indexConfig);
+
+            #region Temp to monitor text extract and indexing timing
+            StreamWriter sw = File.AppendText($@"C:\\Indexes\{Path.GetFileName(directoryPath)}Count.txt");
             int i = 1;
-            foreach (var file in files)
+            #endregion
+
+            SemaphoreSlim indexingSemaphoreSlim = new SemaphoreSlim(1, 1);
+
+            var parallelOptions = new ParallelOptions() { MaxDegreeOfParallelism = 5 };
+
+            Parallel.ForEach(files, parallelOptions, async (file) =>
             {
                 try
                 {
-                    var textExtrator = new TextExtractor();
+                    #region Temp to monitor text extract and indexing timing - 1
+                    Stopwatch textExtractStopWatch = new Stopwatch();
+                    Stopwatch indexingStopWatch = new Stopwatch();
+                    textExtractStopWatch.Start();
+                    #endregion
 
+                    //Extract text from files
+                    var textExtrator = new TextExtractor();
                     var text = textExtrator.Extract(file).Text;
 
-                    var doc = new Document();
+                    #region Temp to monitor text extract and indexing timing - 2
+                    textExtractStopWatch.Stop();
+                    TimeSpan tE = textExtractStopWatch.Elapsed;
+                    string tEElapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                        tE.Hours, tE.Minutes, tE.Seconds,
+                        tE.Milliseconds / 10);
+                    sw.WriteLine($"{Path.GetFileName(directoryPath)} - {i}; Text Extract time elapsed: {tEElapsedTime};  filePath: {file}");
+                    #endregion
 
-                    doc.Add(new StringField("path", file, Field.Store.YES));
-
-                    doc.Add(new TextField("text", text, Field.Store.YES));
-
-                    var dir = FSDirectory.Open(indexLocation);  
-
-                    //create an index writer
-                    var indexConfig = new IndexWriterConfig(AppLuceneVersion, analyzer);
-
-                    using (var writer = new IndexWriter(dir, indexConfig))
+                    try
                     {
-                        writer.UpdateDocument(new Term("path", file), doc);
-                        writer.Flush(triggerMerge: false, applyAllDeletes: false);
-                        writer.Commit();
-                        writer.Dispose();
-                    };
+                        //One indexing at a time to avoid NativeFSLock
+                        await indexingSemaphoreSlim.WaitAsync();
 
+                        #region Temp to monitor text extract and indexing timing - 3
+                        indexingStopWatch.Start();
+                        #endregion
+
+                        //Add or update text and path to Index
+                        var doc = new Document();
+                        doc.Add(new StringField("path", file, Field.Store.YES));
+                        doc.Add(new TextField("text", text, Field.Store.YES));
+
+                        writer.UpdateDocument(new Term("path", file), doc);
+
+                        #region Temp to monitor text extract and indexing timing - 4
+                        indexingStopWatch.Stop();
+                        #endregion
+                    }
+                    catch (OutOfMemoryException)
+                    {
+                        writer.Dispose();
+                        writer = new IndexWriter(dir, indexConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex);
+                    }
+                    finally
+                    {
+                        #region Temp to monitor text extract and indexing timing - 5
+                        TimeSpan iE = indexingStopWatch.Elapsed;
+                        string iEElapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                            iE.Hours, iE.Minutes, iE.Seconds,
+                            iE.Milliseconds / 10);
+                        sw.WriteLine($"{Path.GetFileName(directoryPath)} - {i}; Indexing time elapsed: {iEElapsedTime}; filePath: {file}");
+                        i++;
+                        #endregion
+
+                        indexingSemaphoreSlim.Release();
+                    }
                 }
                 catch (Exception ex)
                 {
                     Log.Error(ex);
                 }
-                finally
-                {
-                    File.AppendAllText($"{projectDirectory}Indexes\\Count.txt", $"{Path.GetFileName(directoryPath)}, {i}");
-                    i++;
-                }
+            });
 
-            }
+            #region Temp to monitor text extract and indexing timing - 6
+            sw.Close();
+            #endregion
+
+            writer.Flush(triggerMerge: false, applyAllDeletes: false);
+            writer.Commit();
+            writer.Dispose();
+            dir.Dispose();
         }
-
+      
         public List<string> Search(string directoryNameOrPath, string keyword)
         {
             var AppLuceneVersion = LuceneVersion.LUCENE_48;
 
-            string workingDirectory = Environment.CurrentDirectory;
+            var indexLocation = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.FullName}Indexes\\{Path.GetFileName(directoryNameOrPath)}";
 
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
-            var indexLocation = $"{projectDirectory}Indexes\\{Path.GetFileName(directoryNameOrPath)}";
             var dir = FSDirectory.Open(indexLocation);
 
             //create an analyzer to process the text

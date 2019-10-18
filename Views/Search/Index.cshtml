@@ -1,0 +1,58 @@
+﻿@*@model IEnumerable<DocSea.Models.SearchResult>*@
+@model DocSea.Models.SearchModel
+
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search</h2>
+
+@using (Html.BeginForm("index", "search"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-inline">
+        <h4>DocumentIndex</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div>
+                @Html.EditorFor(model => model.SearchKeyword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SearchKeyword, "", new { @class = "text-danger" })
+            </div>
+            @*<input type="search" name="search" value="@Model.SearchKeyword" />*@
+        </div>
+        <div class="form-group">
+            <div>
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<br>
+
+@if (Model == null)
+{
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+               Paths
+            </th>
+        </tr>
+
+        @foreach (var item in Model.SearchResults)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item)
+                </td>
+            </tr>
+        }
+    </table>
+}
