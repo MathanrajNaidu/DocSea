@@ -24,12 +24,12 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Document Index", "Index", "DocumentIndex")</li>
                     <li>@Html.ActionLink("Search", "Index", "Search")</li>
-                    <li><a href="/swagger">Swagger</a></li>
+                    <li>@Html.ActionLink("Swagger", "Index", "SwaggerView")</li>
                     @if (Request.IsAuthenticated)
                     {
                         <li><a href="/hangfire">Hangfire</a></li>
                     }
-                    </ul>
+                </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
             </div>
