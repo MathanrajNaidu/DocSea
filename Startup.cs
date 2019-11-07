@@ -1,5 +1,6 @@
 ﻿using DocSea.Models;
 using DocSea.Process;
+using DocSea.Provider;
 using DocSea.Provider.DocSea.Providers;
 using Hangfire;
 using Hangfire.SqlServer;
@@ -23,7 +24,10 @@ namespace DocSea
         {
             ConfigureAuth(app);
             app.UseHangfireAspNet(GetHangfireServers);
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions
+            {
+                Authorization = new[] { new HangfireAuthorizationFilter() }
+            });
             log4net.Config.XmlConfigurator.Configure();
             var indexDocumentsManager = new IndexDocumentManager();
             Task.Factory.StartNew(() => indexDocumentsManager.IndexingTimerAsync());

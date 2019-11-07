@@ -377,9 +377,10 @@
     <Compile Include="Models\DocumentIndex.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SearchModel.cs" />
-    <Compile Include="Process\IndexDocumentManager.cs" />
+    <Compile Include="IndexDocument\IndexDocumentManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\ApplicationOAuthProvider.cs" />
+    <Compile Include="Provider\HangfireAuthorizationFilter.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
