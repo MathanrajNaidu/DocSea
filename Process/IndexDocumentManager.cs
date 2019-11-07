@@ -6,6 +6,7 @@ using log4net;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
+using Lucene.Net.QueryParsers.Classic;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
 using Lucene.Net.Util;
@@ -30,6 +31,7 @@ namespace DocSea.Process
         private ApplicationDbContext db = new ApplicationDbContext();
         private static readonly ILog Log = LogManager.GetLogger(typeof(IndexDocumentManager));
         private static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
+        private static readonly LuceneVersion AppLuceneVersion = LuceneVersion.LUCENE_48;
 
         public async Task IndexingTimerAsync()
         {
@@ -96,7 +98,10 @@ namespace DocSea.Process
                     }
                 }
                 Task.Factory.StartNew(() => UpdateReader(index.DirectoryPath));
-                Task.Factory.StartNew(() => CheckAndStartNewIndexingProcessAsync(id, false));
+                Task.Factory.StartNew(() => {
+                    Thread.Sleep(30000);
+                    Task.Run(()=>CheckAndStartNewIndexingProcessAsync(id, false));
+                });
             }
             catch (Exception ex)
             {
@@ -125,8 +130,6 @@ namespace DocSea.Process
 
             var dir = FSDirectory.Open(indexLocation);
 
-            var AppLuceneVersion = LuceneVersion.LUCENE_48;
-
             //create an analyzer to process the text
             var analyzer = new StandardAnalyzer(AppLuceneVersion);
 
@@ -134,57 +137,28 @@ namespace DocSea.Process
             var indexConfig = new IndexWriterConfig(AppLuceneVersion, analyzer);
             var writer = new IndexWriter(dir, indexConfig);
 
-            #region Temp to monitor text extract and indexing timing
-            StreamWriter sw = File.AppendText($@"C:\\Indexes\{Path.GetFileName(directoryPath)}Count.txt");
-            int i = 1;
-            #endregion
-
             SemaphoreSlim indexingSemaphoreSlim = new SemaphoreSlim(1, 1);
 
-            var parallelOptions = new ParallelOptions() { MaxDegreeOfParallelism = 5 };
-
-            Parallel.ForEach(files, parallelOptions, async (file) =>
+            Parallel.ForEach(files, new ParallelOptions() { MaxDegreeOfParallelism = 5 }, async (file) =>
             {
                 try
                 {
-                    #region Temp to monitor text extract and indexing timing - 1
-                    Stopwatch textExtractStopWatch = new Stopwatch();
-                    Stopwatch indexingStopWatch = new Stopwatch();
-                    textExtractStopWatch.Start();
-                    #endregion
-
                     //Extract text from files
                     var textExtrator = new TextExtractor();
                     var text = textExtrator.Extract(file).Text;
-
-                    #region Temp to monitor text extract and indexing timing - 2
-                    textExtractStopWatch.Stop();
-                    TimeSpan tE = textExtractStopWatch.Elapsed;
-                    string tEElapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                        tE.Hours, tE.Minutes, tE.Seconds,
-                        tE.Milliseconds / 10);
-                    sw.WriteLine($"{Path.GetFileName(directoryPath)} - {i}; Text Extract time elapsed: {tEElapsedTime};  filePath: {file}");
-                    #endregion
 
                     try
                     {
                         //One indexing at a time to avoid NativeFSLock
                         await indexingSemaphoreSlim.WaitAsync();
 
-                        #region Temp to monitor text extract and indexing timing - 3
-                        indexingStopWatch.Start();
-                        #endregion
-
                         //Add or update text and path to Index
                         var doc = new Document();
                         doc.Add(new StringField("path", file, Field.Store.YES));
+                        doc.Add(new TextField("name", Path.GetFileNameWithoutExtension(file), Field.Store.YES));
                         doc.Add(new TextField("text", text, Field.Store.YES));
 
                         writer.UpdateDocument(new Term("path", file), doc);
-
-                        #region Temp to monitor text extract and indexing timing - 4
-                        indexingStopWatch.Stop();
-                        #endregion
                     }
                     catch (OutOfMemoryException)
                     {
@@ -197,15 +171,6 @@ namespace DocSea.Process
                     }
                     finally
                     {
-                        #region Temp to monitor text extract and indexing timing - 5
-                        TimeSpan iE = indexingStopWatch.Elapsed;
-                        string iEElapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                            iE.Hours, iE.Minutes, iE.Seconds,
-                            iE.Milliseconds / 10);
-                        sw.WriteLine($"{Path.GetFileName(directoryPath)} - {i}; Indexing time elapsed: {iEElapsedTime}; filePath: {file}");
-                        i++;
-                        #endregion
-
                         indexingSemaphoreSlim.Release();
                     }
                 }
@@ -214,10 +179,6 @@ namespace DocSea.Process
                     Log.Error(ex);
                 }
             });
-
-            #region Temp to monitor text extract and indexing timing - 6
-            sw.Close();
-            #endregion
 
             writer.Flush(triggerMerge: false, applyAllDeletes: false);
             writer.Commit();
@@ -241,12 +202,10 @@ namespace DocSea.Process
             }
 
             // search with a phrase
-            var keywordList = keyword.Split(' ').ToList();
-            var phrase = new MultiPhraseQuery();
-            foreach (var word in keywordList)
-            {
-                phrase.Add(new Term("text", word));
-            }
+            var analyzer = new StandardAnalyzer(AppLuceneVersion);
+
+            var queryParser = new MultiFieldQueryParser(AppLuceneVersion, new[] { "name", "text" }, analyzer);
+            var phrase = queryParser.Parse(keyword);
 
             var searcher = new IndexSearcher(reader);
             var hits = searcher.Search(phrase, 20 /*, 20 top 20 */).ScoreDocs;
@@ -255,7 +214,6 @@ namespace DocSea.Process
             {
                 var foundDoc = searcher.Doc(hit.Doc);
                 paths.Add(foundDoc.GetField("path").GetStringValue());
-                //add query for filename
             }
 
             return paths;
